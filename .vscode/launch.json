@@ -1,0 +1,29 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Current C++ File",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb",
+        "preLaunchTask": "run current cpp file", // 👈 对应 tasks.json 里的 label
+        "setupCommands": [
+          {
+            "description": "Enable pretty-printing for LLDB",
+            "text": "settings set target.pretty-printing true",
+            "ignoreFailures": true
+          }
+        ]
+      }
+    ]
+  }
+  
