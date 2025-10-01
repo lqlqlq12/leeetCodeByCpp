@@ -10,6 +10,7 @@
           "${file}",                         // 当前打开的 cpp 文件
           "-o",                              // 输出的文件名
           "${workspaceFolder}/bin/${fileBasenameNoExtension}", // 输出可执行文件的路径
+          "-I", "${workspaceFolder}/Structure",
           "&&",                              // 编译成功后继续执行后面的命令
           "${workspaceFolder}/bin/${fileBasenameNoExtension}"  // 运行刚才生成的可执行程序
         ],
