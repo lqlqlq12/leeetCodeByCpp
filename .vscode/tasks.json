@@ -2,17 +2,16 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "run current cpp file",     // 任务的名字（你可以随便起）
+        "label": "build current cpp file",     // 任务的名字（你可以随便起）
         "type": "shell",                     // 表示这个任务在“终端中运行”
         "command": "clang++",                // 使用 clang++ 这个编译器（macOS 自带）
         "args": [                            // 传给 clang++ 的参数
           "-std=c++17",                      // 使用 C++17 标准
+          "-g",
           "${file}",                         // 当前打开的 cpp 文件
           "-o",                              // 输出的文件名
           "${workspaceFolder}/bin/${fileBasenameNoExtension}", // 输出可执行文件的路径
-          "-I", "${workspaceFolder}/Structure",
-          "&&",                              // 编译成功后继续执行后面的命令
-          "${workspaceFolder}/bin/${fileBasenameNoExtension}"  // 运行刚才生成的可执行程序
+          "-I", "${workspaceFolder}/Structure"
         ],
         "group": {
           "kind": "build",
