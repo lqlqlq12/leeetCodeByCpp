@@ -3,7 +3,10 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/Library/Developer/CommandLineTools/usr/include/c++/v1",
+                "/usr/include",
+                "/usr/local/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

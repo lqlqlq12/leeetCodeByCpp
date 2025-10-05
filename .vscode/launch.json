@@ -15,7 +15,7 @@
         "environment": [],
         "externalConsole": false,
         "MIMode": "lldb",
-        "preLaunchTask": "run current cpp file", // 👈 对应 tasks.json 里的 label
+        "preLaunchTask": "build current cpp file", // 👈 对应 tasks.json 里的 label
         "setupCommands": [
           {
             "description": "Enable pretty-printing for LLDB",
