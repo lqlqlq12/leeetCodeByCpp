@@ -1,25 +1,43 @@
 {
     "version": "2.0.0",
     "tasks": [
-      {
-        "label": "build current cpp file",     // 任务的名字（你可以随便起）
-        "type": "shell",                     // 表示这个任务在“终端中运行”
-        "command": "clang++",                // 使用 clang++ 这个编译器（macOS 自带）
-        "args": [                            // 传给 clang++ 的参数
-          "-std=c++17",                      // 使用 C++17 标准
-          "-g",
-          "${file}",                         // 当前打开的 cpp 文件
-          "-o",                              // 输出的文件名
-          "${workspaceFolder}/bin/${fileBasenameNoExtension}", // 输出可执行文件的路径
-          "-I", "${workspaceFolder}/Structure"
-        ],
-        "group": {
-          "kind": "build",
-          "isDefault": true                  // 设置为默认任务，按快捷键就能运行
+        {
+            "label": "build current cpp file",
+            "type": "shell",
+            "command": "clang++",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+                "-I",
+                "${workspaceFolder}/Structure"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "编译当前 C++ 文件"
         },
-        "problemMatcher": ["$gcc"],          // 用来识别报错信息，显示在问题面板中
-        "detail": "编译并运行当前 C++ 文件"     // 任务说明（可选）
-      }
+        {
+            "type": "shell",
+            "label": "build and run current cpp file",
+            "command": "bash",
+            "args": [
+              "-c",
+              "clang++ -std=c++17 -g \"${file}\" -o \"${workspaceFolder}/bin/${fileBasenameNoExtension}\" -I \"${workspaceFolder}/Structure\" && \"${workspaceFolder}/bin/${fileBasenameNoExtension}\""
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
     ]
-  }
-  
+}

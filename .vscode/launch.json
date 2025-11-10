@@ -23,6 +23,16 @@
             "ignoreFailures": true
           }
         ]
+      },
+      {
+        "type": "cppdbg",
+        "request": "launch",
+        "name": "Run Current C++ File",   
+        "program": "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "MIMode": "lldb",
+        "preLaunchTask": "build and run current cpp file"
       }
     ]
   }
