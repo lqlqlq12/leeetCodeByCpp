@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <vector>
 using namespace std;
 /* 10. 正则表达式匹配
 
@@ -16,58 +17,86 @@ class Solution
 public:
     bool isMatch(string s, string p)
     {
-        int sLen = s.size(), pLen = p.size(), sIndex = 0, pIndex = 0;
-        for (; sIndex < sLen && pIndex < pLen;)
+        int m = s.size(), n = p.size();
+        vector<vector<bool>> dp(m + 1, vector<bool>(n + 1));
+        dp[0][0] = true;
+        for (int i = 0; i <= m; i++)
         {
-            char target = s[sIndex];
-            char pattern = p[pIndex];
-            if (target == pattern || pattern == '.')
+            for (int j = 1; j <= n; j++)
             {
-                sIndex++;
-                pIndex++;
-            }
-            else if (pattern == '*')
-            {
-                if (pIndex > 0 && (p[pIndex - 1] == target || p[pIndex - 1] == '.'))
+                if (p[j - 1] != '*')
                 {
-                    sIndex++;
+                    if (i > 0 && (p[j - 1] == '.' || s[i - 1] == p[j - 1]))
+                    {
+                        dp[i][j] = dp[i - 1][j - 1];
+                    }
                 }
                 else
                 {
-                    pIndex++;
+                    if (dp[i][j - 2])
+                    {
+                        dp[i][j] = true;
+                        continue;
+                    }
+                    if (i > 0 && (p[j - 2] == '.' || s[i - 1] == p[j - 2]))
+                    {
+                        dp[i][j] = dp[i - 1][j];
+                    }
                 }
             }
-            else if (pIndex < pLen - 1 && p[pIndex + 1] == '*')
-            {
-                pIndex++;
-            }
-            else
-            {
-                return false;
-            }
         }
-        for (; pIndex < pLen; pIndex++)
+        return dp[m][n];
+    }
+
+    bool isMatch_version2(string s, string p)
+    {
+        int m = s.size(), n = p.size(), sIndex = 0, pIndex = 0;
+        vector<vector<bool>> dp(m + 1, vector<bool>(n + 1));
+        dp[0][0] = true;
+        for (int j = 1; j < n; j += 2)
         {
-            if (p[pIndex] == '*')
+            if (p[j] == '*')
             {
-                continue;
-            }
-            else if (pIndex < pLen - 1 && p[pIndex + 1] == '*')
-            {
-                continue;
+                dp[0][j + 1] = true;
             }
             else
             {
-                return false;
+                break;
             }
         }
-        return sIndex == sLen;
+        for (int i = 1; i <= m; i++)
+        {
+            for (int j = 1; j <= n; j++)
+            {
+                char target = s[i - 1];
+                char pattern = p[j - 1];
+                if (pattern == target)
+                {
+                    dp[i][j] = dp[i - 1][j - 1];
+                }
+                else if (pattern == '.')
+                {
+                    dp[i][j] = dp[i - 1][j - 1];
+                }
+                else if (pattern == '*')
+                {
+                    if (p[j - 2] == '.' || p[j - 2] == target)
+                    {
+                        dp[i][j] = dp[i - 1][j];
+                    }
+                    if (!dp[i][j])
+                    {
+                        dp[i][j] = dp[i][j - 2];
+                    }
+                }
+            }
+        }
+        return dp[m][n];
     }
 };
-
 int main()
 {
     Solution sol;
-    cout << sol.isMatch("aa", "a.");
+    cout << sol.isMatch("mississippi", "mis*is*p*.");
     return 0;
 }
