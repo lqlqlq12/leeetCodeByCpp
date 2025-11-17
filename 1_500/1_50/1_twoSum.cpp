@@ -7,6 +7,7 @@ using namespace std;
 // commandK commandF :格式化选中
 // option shift A :块注释
 // command / 逐个单行注释
+// 块折叠 command option [,展开]
 class Solution {
    public:
     vector<int> twoSum(vector<int>& nums, int target) {

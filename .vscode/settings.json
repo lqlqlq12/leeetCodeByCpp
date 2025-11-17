@@ -54,7 +54,20 @@
         "__config": "cpp",
         "set": "cpp",
         "unordered_set": "cpp",
-        "climits": "cpp"
+        "climits": "cpp",
+        "__bits": "cpp",
+        "__debug": "cpp",
+        "__nullptr": "cpp",
+        "__string": "cpp",
+        "__tuple": "cpp",
+        "atomic": "cpp",
+        "bit": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "exception": "cpp",
+        "format": "cpp",
+        "system_error": "cpp",
+        "type_traits": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
