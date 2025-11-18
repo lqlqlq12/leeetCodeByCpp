@@ -25,25 +25,44 @@ using namespace std;
 class Solution
 {
 public:
-    int romanToInt(string s)
+    vector<vector<int>> threeSum(vector<int> &nums)
     {
-        int len = s.size(), re = 0;
-        vector<int> arr(len);
-        unordered_map<char, int> map({{'I', 1},
-                                      {'V', 5},
-                                      {'X', 10},
-                                      {'L', 50},
-                                      {'C', 100},
-                                      {'D', 500},
-                                      {'M', 1000}});
-        for (int i = 0; i < len; i++)
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> re;
+        int len = nums.size();
+        for (int i = 0; i < len - 2; i++)
         {
-            char c = s[i];
-            arr[i] = map[c];
-            re += map[c];
-            if (i > 0 && arr[i] > arr[i - 1])
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            if (nums[i] + nums[i + 1] + nums[i + 2] > 0)
+                break;
+            if (nums[i] + nums[len - 1] + nums[len - 2] < 0)
+                continue;
+            int j = i + 1, k = len - 1, target = -nums[i];
+            while (j < k)
             {
-                re -= (2 * arr[i - 1]);
+                if (nums[j] + nums[k] == target)
+                {
+                    re.push_back({nums[i], nums[j], nums[k]});
+                    j++;
+                    k--;
+                    while (j < k && nums[j] == nums[j - 1])
+                        j++;
+                    while (j < k && nums[k] == nums[k + 1])
+                        k--;
+                }
+                else if (nums[j] + nums[k] < target)
+                {
+                    j++;
+                    while (j < k && nums[j] == nums[j - 1])
+                        j++;
+                }
+                else
+                {
+                    k--;
+                    while (j < k && nums[k] == nums[k + 1])
+                        k--;
+                }
             }
         }
         return re;
