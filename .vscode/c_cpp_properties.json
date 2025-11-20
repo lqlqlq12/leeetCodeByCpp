@@ -4,6 +4,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/Structure",
                 "/Library/Developer/CommandLineTools/usr/include/c++/v1",
                 "/usr/include",
                 "/usr/local/include"
