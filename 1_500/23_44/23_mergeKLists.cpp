@@ -27,6 +27,7 @@ public:
     {
         int val;
         ListNode *p;
+        Node(int v, ListNode *ptr) : val(v), p(ptr) {}
         bool operator<(const Node &another) const
         {
             return val > another.val;

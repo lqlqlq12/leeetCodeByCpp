@@ -3,8 +3,9 @@
 
  s 中的 串联子串 是指一个包含  words 中所有字符串以任意顺序排列连接起来的子串。
 
-例如，如果 words = ["ab","cd","ef"]， 那么 "abcdef"， "abefcd"，"cdabef"， "cdefab"，"efabcd"， 和 "efcdab" 都是串联子串。 "acdbef" 不是串联子串，因为他不是任何 words 排列的连接。
-返回所有串联子串在 s 中的开始索引。你可以以 任意顺序 返回答案。 */
+例如，如果 words = ["ab","cd","ef"]， 那么 "abcdef"， "abefcd"，"cdabef"， "cdefab"，"efabcd"， 和 "efcdab" 都是串联子串。 "acdbef" 不是串联子串，
+因为他不是任何 words 排列的连接。
+返回所有串联子串在 s 中的开始索引。你可以以 任意顺序 返回答案。 abcdefaaa */
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -118,12 +119,12 @@ public:
             for (int j = i; j + n * len + len <= s.size(); j += len)
             {
                 string word = s.substr(j, len);
-                if (--map[word] == 0)
+                if (++map[word] == 0)
                 {
                     map.erase(word);
                 }
                 word = s.substr(j + n * len, len);
-                if (++map[word] == 0)
+                if (--map[word] == 0)
                 {
                     map.erase(word);
                 }
