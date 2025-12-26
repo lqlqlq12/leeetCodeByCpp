@@ -11,9 +11,45 @@ n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，�
 using namespace std;
 #include <vector>
 
-class Solution {
+class Solution
+{
 public:
-    vector<vector<string>> solveNQueens(int n) {
-        
+    vector<bool> rows;
+    vector<bool> cols;
+    vector<bool> x;
+    vector<bool> y;
+    vector<vector<string>> re;
+
+    vector<vector<string>> solveNQueens(int n)
+    {
+        rows = vector<bool>(n);
+        cols = vector<bool>(n);
+        x = vector<bool>(2 * n - 1);
+        y = vector<bool>(2 * n - 1);
+        vector<string> lists;
+        dfs(0, n, lists);
+        return re;
+    }
+
+    void dfs(int index, int n, vector<string> &lists)
+    {
+        if (index == n)
+        {
+            re.emplace_back(lists);
+            return;
+        }
+        for (int i = 0; i < n; i++)
+        {
+            if (!cols[i] && !x[i + n - index - 1] && !y[i + index])
+            {
+                cols[i] = x[i + n - index - 1] = y[i + index] = true;
+                string str(n, '.');
+                str[i] = 'Q';
+                lists.emplace_back(str);
+                dfs(index + 1, n, lists);
+                lists.pop_back();
+                cols[i] = x[i + n - index - 1] = y[i + index] = false;
+            }
+        }
     }
 };
