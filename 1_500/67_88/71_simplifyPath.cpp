@@ -15,6 +15,7 @@
 此外，路径仅包含从根目录到目标文件或目录的路径上的目录（即，不含 '.' 或 '..'）。
 返回简化后得到的 规范路径 。 */
 #include <string>
+#include <vector>
 using namespace std;
 
 class Solution
@@ -22,6 +23,77 @@ class Solution
 public:
     string simplifyPath(string path)
     {
-        int len = path.size();
+        int len = path.size(), index = 0, j;
+        vector<string> stack;
+        for (; index < len;)
+        {
+            char c = path[index];
+            switch (c)
+            {
+            case '/':
+                j = index;
+                while (j < len && path[j] == '/')
+                {
+                    j++;
+                }
+                index = j;
+                break;
+            case '.':
+            {
+                int count = 1;
+                j = index + 1;
+                while (j < len && path[j] != '/')
+                {
+                    if (path[j] == '.')
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if (j - index == count)
+                {
+                    if (count == 2)
+                    {
+                        if (stack.size() != 0)
+                        {
+                            stack.pop_back();
+                        }
+                    }
+                    else if (count >= 3)
+                    {
+                        stack.push_back(path.substr(index, count));
+                    }
+                }
+                else
+                {
+                    stack.push_back(path.substr(index, j - index));
+                }
+                index = j + 1;
+                break;
+            }
+            default:
+                j = index;
+                while (j < len && path[j] != '/')
+                {
+                    j++;
+                }
+                stack.push_back(path.substr(index, j - index));
+                index = j + 1;
+            }
+        }
+        string re;
+        while (stack.size() != 0)
+        {
+            re = ("/" + stack.back()) + re;
+            stack.pop_back();
+        }
+        return re.size() != 0 ? re : "/";
     }
 };
+
+int main()
+{
+    Solution sol;
+    string path = "/home/user/Documents/../Pictures";
+    sol.simplifyPath(path);
+}

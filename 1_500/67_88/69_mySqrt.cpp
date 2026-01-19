@@ -12,7 +12,7 @@ public:
     int mySqrt(int x)
     {
         int left = 1, right = x, re = 0;
-        while (left < right)
+        while (left <= right)
         {
             int mid = left + ((right - left) >> 1);
             if ((long)mid * mid == x)
