@@ -90,10 +90,3 @@ public:
         return re.size() != 0 ? re : "/";
     }
 };
-
-int main()
-{
-    Solution sol;
-    string path = "/home/user/Documents/../Pictures";
-    sol.simplifyPath(path);
-}
