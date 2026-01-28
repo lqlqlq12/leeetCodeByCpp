@@ -34,26 +34,40 @@ public:
                 break;
             }
         }
-        if (right == s.size())
-        {
-            return "";
-        }
-        int minLen = right + 1;
-        string re = s.substr(left, minLen);
-        while (left < right && right < s.size())
+        for (; left < right; left++)
         {
             char c = s[left];
             if (map.find(c) == map.end())
             {
-                left++;
                 continue;
             }
             if (map[c] < 0)
             {
                 map[c] += 1;
-                left++;
                 continue;
             }
+            break;
+        }
+        if (right == s.size())
+        {
+            return "";
+        }
+        int minLen = right - left + 1;
+        string re = s.substr(left, minLen);
+        for (; left <= right && right < s.size(); left++)
+        {
+            char c = s[left];
+            if (map.find(c) == map.end())
+            {
+                continue;
+            }
+            if (map[c] < 0)
+            {
+                map[c] += 1;
+                continue;
+            }
+            // map[c]=0
+            right++;
             while (right < s.size() && s[right] != s[left])
             {
                 if (map.find(s[right]) != map.end())
@@ -62,13 +76,9 @@ public:
                 }
                 right++;
             }
-            if (right == s.size())
+            while (left < right && left < s.size())
             {
-                return re;
-            }
-            while (left < right)
-            {
-                char cl = s[left];
+                char cl = s[left + 1];
                 if (map.find(cl) == map.end())
                 {
                     left++;
@@ -76,18 +86,21 @@ public:
                 }
                 if (map[cl] < 0)
                 {
-                    map[cl]++;
+                    map[cl] += 1;
                     left++;
                     continue;
                 }
                 break;
             }
+            if (right == s.size())
+            {
+                return re;
+            }
             if (minLen > (right - left))
             {
                 minLen = right - left;
-                re = s.substr(left, minLen);
+                re = s.substr(left + 1, minLen);
             }
-            left++;
         }
         return re;
     }
@@ -96,5 +109,5 @@ public:
 int main()
 {
     Solution sol;
-    sol.minWindow("ADOBECODEBANC", "ABC");
+    sol.minWindow("ab", "b");
 }
