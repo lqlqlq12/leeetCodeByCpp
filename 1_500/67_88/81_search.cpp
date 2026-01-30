@@ -32,9 +32,27 @@ public:
                 left++;
                 right--;
             }
-            if (nums[mid] >= nums[left])
+            else if (nums[mid] >= nums[left]) // left-mid是连续的
             {
-                
+                if (nums[left] <= target && target < nums[mid])
+                {
+                    right = mid - 1;
+                }
+                else
+                {
+                    left = mid + 1;
+                }
+            }
+            else
+            {
+                if (nums[left] <= target || nums[mid] > target)
+                {
+                    right = mid - 1;
+                }
+                else
+                {
+                    left = mid + 1;
+                }
             }
         }
 
