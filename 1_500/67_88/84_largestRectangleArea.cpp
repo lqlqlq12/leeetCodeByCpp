@@ -27,7 +27,7 @@ public:
         }
         for (int i = 0; i < n; i++)
         {
-            re = max(re, heights[i] * (right[i] - left[i] + 1));
+            re = max(re, heights[i] * (right[i] - left[i] - 1));
         }
         return re;
     }
