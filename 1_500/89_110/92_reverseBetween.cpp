@@ -13,7 +13,6 @@
  * };
  */
 #include <ListNode_1.h>
-using namespace std;
 
 class Solution
 {
