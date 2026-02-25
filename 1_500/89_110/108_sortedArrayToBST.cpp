@@ -8,7 +8,27 @@ using namespace std;
 class Solution
 {
 public:
+    vector<int> nums;
     TreeNode *sortedArrayToBST(vector<int> &nums)
     {
+        this->nums = nums;
+        return build(0, nums.size() - 1);
+    }
+
+    TreeNode *build(int left, int right)
+    {
+        if (left >= right)
+        {
+            return new TreeNode(nums[left]);
+        }
+
+        int index = left + ((right - left) >> 1);
+        TreeNode *root = new TreeNode(nums[index]);
+        if (index > left)
+        {
+            root->left = build(left, index - 1);
+        }
+        root->right = build(index + 1, right);
+        return root;
     }
 };
