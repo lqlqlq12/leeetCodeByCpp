@@ -56,7 +56,7 @@ public:
         }
         for (int i = 1; i < length; i++)
         {
-            if ((dfs(index1, index2, i) && dfs(index1 + i, index2 + i, length - i)) || (dfs(index1, index2 + length - i - 1, i) && dfs(index1 + i, index2, length - i)))
+            if ((dfs(index1, index2, i) && dfs(index1 + i, index2 + i, length - i)) || (dfs(index1, index2 + length - i, i) && dfs(index1 + i, index2, length - i)))
             {
                 at(index1, index2, length) = 1;
                 return true;
