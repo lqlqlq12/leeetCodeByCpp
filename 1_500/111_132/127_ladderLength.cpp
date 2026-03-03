@@ -9,6 +9,7 @@ sk == endWord
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <unordered_set>
 using namespace std;
 
 class Solution
@@ -16,16 +17,39 @@ class Solution
 public:
     int ladderLength(string beginWord, string endWord, vector<string> &wordList)
     {
-        int re = 0;
+        int re = 1;
         if (find(wordList.begin(), wordList.end(), endWord) == wordList.end())
         {
-            return re;
+            return 0;
         }
         queue<string> que;
         que.push(beginWord);
+        unordered_set<string> remains(wordList.begin(),wordList.end());
         while (!que.empty())
         {
+            re++;
+            int size = que.size();
+            unordered_set<string> nextLay;
+            for (int i = 0; i < size; i++)
+            {
+                string word = que.front();
+                que.pop();
+                vector<string> changes = changeWordByOneAlpha(word);
+                for (auto &change : changes){
+                    if(change == endWord){
+                        return re;
+                    }
+                    if (remains.find(change)!=remains.end()) {
+                        nextLay.insert(change);
+                        que.push(change);
+                    }
+                }
+            }
+            for (auto &word:nextLay){
+                remains.erase(word);
+            }
         }
+        return 0;
     }
 
     vector<string> changeWordByOneAlpha(string word)
