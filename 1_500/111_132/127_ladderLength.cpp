@@ -24,7 +24,7 @@ public:
         }
         queue<string> que;
         que.push(beginWord);
-        unordered_set<string> remains(wordList.begin(),wordList.end());
+        unordered_set<string> remains(wordList.begin(), wordList.end());
         while (!que.empty())
         {
             re++;
@@ -34,41 +34,34 @@ public:
             {
                 string word = que.front();
                 que.pop();
-                vector<string> changes = changeWordByOneAlpha(word);
-                for (auto &change : changes){
-                    if(change == endWord){
-                        return re;
+                for (int j = 0; j < word.size(); j++)
+                {
+                    char origin = word[j];
+                    for (char k = 'a'; k <= 'z'; k++)
+                    {
+                        if (k == origin)
+                        {
+                            continue;
+                        }
+                        word[j] = k;
+                        if (remains.find(word) != remains.end())
+                        {
+                            if (word == endWord)
+                            {
+                                return re;
+                            }
+                            nextLay.insert(word);
+                            que.push(word);
+                        }
                     }
-                    if (remains.find(change)!=remains.end()) {
-                        nextLay.insert(change);
-                        que.push(change);
-                    }
+                    word[j] = origin;
                 }
             }
-            for (auto &word:nextLay){
+            for (auto &word : nextLay)
+            {
                 remains.erase(word);
             }
         }
         return 0;
-    }
-
-    vector<string> changeWordByOneAlpha(string word)
-    {
-        vector<string> re;
-        for (int i = 0; i < word.size(); i++)
-        {
-            char origin = word[i];
-            for (char j = 'a'; j <= 'z'; j++)
-            {
-                if (j == origin)
-                {
-                    continue;
-                }
-                word[i] = j;
-                re.emplace_back(word);
-            }
-            word[i] = origin;
-        }
-        return re;
     }
 };
