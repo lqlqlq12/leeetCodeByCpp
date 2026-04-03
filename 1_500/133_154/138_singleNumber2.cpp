@@ -6,9 +6,17 @@
 #include <vector>
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
-    int singleNumber(vector<int>& nums) {
-        
+    int singleNumber(vector<int> &nums)
+    {
+        int low = 0, high = 0;
+        for (int num : nums)
+        {
+            low = (~high) & (low ^ num);
+            high = (~low) & (high ^ num);
+        }
+        return low;
     }
 };
